@@ -1,1 +1,1 @@
-web: App --env=production --workdir="./"
+web: SwiftServer --env=production --workdir="./"
