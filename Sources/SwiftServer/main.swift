@@ -9,6 +9,12 @@
 import Foundation
 import Kitura
 
+#if os(Linux)
+    import Glibc
+    #else
+    import Darwin.C
+#endif
+
 let router = Router()
 
 router.all("/*", middleware: BodyParser())
