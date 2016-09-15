@@ -1,1 +1,1 @@
-web: swift build && ./.build/debug/SwiftServer
+web: SwiftServer && ./.build/debug/SwiftServer
