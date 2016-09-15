@@ -39,7 +39,7 @@ if let arg = CommandLine.arguments.last, let value = UInt16(arg) {
 
 // start the server
 print("starting server port: 8091")
-Kitura.addHTTPServer(onPort: portNumber, with: router)
+Kitura.addHTTPServer(onPort: portNumber!, with: router)
 
 print("Server listening on Port: 8091")
 Kitura.run()
