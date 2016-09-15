@@ -1,1 +1,1 @@
-web:SwiftServer --bind 0.0.0.0:$PORT ./.build/debug/SwiftServer
+web: SwiftServer --bind 0.0.0.0:$PORT
