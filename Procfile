@@ -1,1 +1,1 @@
-web: SwiftServer && ./.build/debug/SwiftServer
+web: SwiftServer —-port=$PORT
