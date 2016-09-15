@@ -19,18 +19,23 @@ let router = Router()
 
 router.all("/*", middleware: BodyParser())
 
+let environmentVars = ProcessInfo.processInfo.environment
+print(environmentVars)
+
 /*let portNumber: UInt16!
 
-if let arg = Process.arguments.last, value = UInt16(arg) {
+if let arg = CommandLine.arguments.last, let value = UInt16(arg) {
     portNumber = value
 } else {
-    print("Usage: \(Process.arguments.first!) portNumber")
+    print("Usage: \(CommandLine.arguments.first!) portNumber")
     exit(1)
-}*/
+}
+*/
+//.listen(process.env.PORT)
 
 // start the server
 print("starting server port: 8091")
-Kitura.addHTTPServer(onPort: 8091, with: router)
+Kitura.addHTTPServer(onPort: 80, with: router)
 
 print("Server listening on Port: 8091")
 Kitura.run()
