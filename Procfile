@@ -1,1 +1,1 @@
-web: swift build && ./.build/debug/ScubeServer
+web: swift build && ./.build/debug/SwiftServer
