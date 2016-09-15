@@ -22,6 +22,9 @@ router.all("/home", middleware: HomeParser())
 
 let environmentVars = ProcessInfo.processInfo.environment
 print(environmentVars)
+let portString: String = environmentVars["PORT"] ?? "8091"
+let portNumber = Int(portString)
+print("port Number \(portNumber))")
 
 /*let portNumber: UInt16!
 
