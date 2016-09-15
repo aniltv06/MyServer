@@ -1,1 +1,1 @@
-web: SwiftServer —port=$PORT
+web: swift build && ./.build/debug/ScubeServer
