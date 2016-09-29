@@ -26,22 +26,11 @@ let portString: String = environmentVars["PORT"] ?? "8091"
 let portNumber = Int(portString)
 print("port Number \(portNumber))")
 
-/*let portNumber: UInt16!
-
-if let arg = CommandLine.arguments.last, let value = UInt16(arg) {
-    portNumber = value
-} else {
-    print("Usage: \(CommandLine.arguments.first!) portNumber")
-    exit(1)
-}
-*/
-//.listen(process.env.PORT)
-
 // start the server
-print("starting server port: 8091")
+print("starting server port: \(portNumber)")
 Kitura.addHTTPServer(onPort: portNumber!, with: router)
 
-print("Server listening on Port: 8091")
+print("Server listening on Port: \(portNumber)")
 Kitura.run()
 
 
