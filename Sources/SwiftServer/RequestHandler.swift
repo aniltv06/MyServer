@@ -7,6 +7,7 @@
 //
 
 import Kitura
+import Foundation
 
 public class HomeParser: RouterMiddleware {
     
@@ -14,6 +15,15 @@ public class HomeParser: RouterMiddleware {
         print("Home called")
         do {
             try response.send("Response from Home").end()
+            let folderPath = NSString(string: #file)
+            let fldrPath = folderPath.deletingLastPathComponent as String
+            let basePath = fldrPath.replacingOccurrences(of: "/Sources/SwiftServer", with: "")
+            
+            print(folderPath)
+            
+            let sourcePath = ("\(basePath)/Sources/SwiftServer/resources/index.html")
+            try response.send(fileName: sourcePath)
+            try response.status(.OK).end()
         } catch {
             print("err")
         }
