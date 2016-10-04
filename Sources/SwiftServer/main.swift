@@ -20,23 +20,13 @@ import Kitura
 //print(folderPath)
 //print(fileName)
 var folderPath = NSString(string: #file)
-while(folderPath.lastPathComponent != "Sources"){
-    #if os(Linux)
-    folderPath = folderPath.deletingLastPathComponent
-    #else
-    folderPath = folderPath.deletingLastPathComponent as NSString
-    #endif
-}
-#if os(Linux)
-folderPath = folderPath.deletingLastPathComponent
-#else
-folderPath = folderPath.deletingLastPathComponent as NSString
-#endif
+var fldrPath = folderPath.deletingLastPathComponent as String
+let basePath = fldrPath.replacingOccurrences(of: "/Sources/SwiftServer", with: "")
 
-var destinationPath = ("\(folderPath)/Packages/Kitura-1.0.0/Sources/Kitura/resources")
+var destinationPath = ("\(basePath)/Packages/Kitura-1.0.0/Sources/Kitura/resources")
 print(folderPath)
 
-var sourcePath = ("\(folderPath)/Sources/SwiftServer/resources")
+var sourcePath = ("\(basePath)/Sources/SwiftServer/resources")
 
 let fileManager = FileManager.default
 
