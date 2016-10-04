@@ -14,7 +14,25 @@ import Kitura
 #else
     import Darwin.C
 #endif
-/*
+
+let router = Router()
+
+router.all("/*", middleware: BodyParser())
+router.all("/home", middleware: HomeParser())
+
+let environmentVars = ProcessInfo.processInfo.environment
+print(environmentVars)
+let portString: String = environmentVars["PORT"] ?? "8091"
+let portNumber = Int(portString)
+print("port Number \(portNumber))")
+
+// start the server
+print("starting server port: \(portNumber)")
+Kitura.addHTTPServer(onPort: portNumber!, with: router)
+
+print("Server listening on Port: \(portNumber)")
+Kitura.run()
+
 var folderPath = NSString(string: #file)
 var fldrPath = folderPath.deletingLastPathComponent as String
 let basePath = fldrPath.replacingOccurrences(of: "/Sources/SwiftServer", with: "")
@@ -37,23 +55,5 @@ do {
 } catch let error as NSError {
     print("Ooops! Something went wrong: \(error)")
 }
-*/
-let router = Router()
-
-router.all("/*", middleware: BodyParser())
-router.all("/home", middleware: HomeParser())
-
-let environmentVars = ProcessInfo.processInfo.environment
-print(environmentVars)
-let portString: String = environmentVars["PORT"] ?? "8091"
-let portNumber = Int(portString)
-print("port Number \(portNumber))")
-
-// start the server
-print("starting server port: \(portNumber)")
-Kitura.addHTTPServer(onPort: portNumber!, with: router)
-
-print("Server listening on Port: \(portNumber)")
-Kitura.run()
 
 
