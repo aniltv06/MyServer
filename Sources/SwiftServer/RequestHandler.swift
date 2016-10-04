@@ -8,15 +8,17 @@
 
 import Kitura
 import Foundation
+import LoggerAPI
 
 public class HomeParser: RouterMiddleware {
     
     public func handle (request: RouterRequest, response: RouterResponse, next: @escaping () -> Void) {
         print("Home called")
         do {
-            try response.send("Response from Home").end()
+            //try response.send("Response from Home").end()
             let folderPath = NSString(string: #file)
             let fldrPath = folderPath.deletingLastPathComponent as String
+            Log.debug(fldrPath)
             let basePath = fldrPath.replacingOccurrences(of: "/Sources/SwiftServer", with: "")
             
             print(folderPath)

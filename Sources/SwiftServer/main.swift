@@ -8,6 +8,7 @@
 
 import Foundation
 import Kitura
+import LoggerAPI
 
 #if os(Linux)
     import Glibc
@@ -16,7 +17,8 @@ import Kitura
 #endif
 
 let router = Router()
-
+Log.logger?.isLogging(LoggerMessageType.debug)
+Log.debug("Main File")
 router.all("/*", middleware: BodyParser())
 router.all("/home", middleware: HomeParser())
 
