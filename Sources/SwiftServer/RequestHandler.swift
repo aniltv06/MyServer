@@ -49,7 +49,7 @@ public class HomeParser: RouterMiddleware {
                 print("Ooops! Something went wrong: \(error)")
             }
             
-            try response.send(fileName: destinationPath)
+            try response.send(fileName: destinationPath + "/index.html")
             //try response.send("Response from Home").end()
             try response.status(.OK).end()
         } catch {
