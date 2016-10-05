@@ -44,7 +44,7 @@ public class HomeParser: RouterMiddleware {
                 print("Ooops! Something went wrong: \(error)")
             }
             do {
-                try fileManager.copyItem(atPath: sourcePath as String, toPath: destinationPath as String)
+                try fileManager.moveItem(atPath: sourcePath as String, toPath: destinationPath as String)
             } catch let error as NSError {
                 print("Ooops! Something went wrong: \(error)")
             }
