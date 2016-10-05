@@ -17,7 +17,6 @@ import LoggerAPI
 #endif
 
 let router = Router()
-Log.logger?.isLogging(LoggerMessageType.debug)
 Log.debug("Main File")
 router.all("/*", middleware: BodyParser())
 router.all("/home", middleware: HomeParser())
@@ -34,17 +33,17 @@ Kitura.addHTTPServer(onPort: portNumber!, with: router)
 
 print("Server listening on Port: \(portNumber)")
 Kitura.run()
-
-var folderPath = NSString(string: #file)
-var fldrPath = folderPath.deletingLastPathComponent as String
-let basePath = fldrPath.replacingOccurrences(of: "/Sources/SwiftServer", with: "")
-
-var destinationPath = ("\(basePath)/Packages/Kitura-1.0.0/Sources/Kitura/resources")
-print(folderPath)
-
-var sourcePath = ("\(basePath)/Sources/SwiftServer/resources")
-
 let fileManager = FileManager.default
+#if os(Linux)
+let sourcePath = fileManager.currentDirectoryPath + "/resources"
+let destinationPath = fileManager.currentDirectoryPath + "/Packages/Kitura-1.0.0/Sources/Kitura/resources"
+#else
+let folderPath = NSString(string: #file)
+let fldrPath = folderPath.deletingLastPathComponent as String
+let basePath = fldrPath.replacingOccurrences(of: "/Sources/SwiftServer", with: "")
+let sourcePath = ("\(basePath)/resources")
+let destinationPath = ("\(basePath)/Packages/Kitura-1.0.0/Sources/Kitura/resources")
+#endif
 
 do {
     try fileManager.removeItem(atPath: destinationPath as String)
@@ -57,5 +56,7 @@ do {
 } catch let error as NSError {
     print("Ooops! Something went wrong: \(error)")
 }
+
+
 
 
