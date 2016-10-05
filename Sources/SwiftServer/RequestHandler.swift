@@ -17,7 +17,7 @@ public class HomeParser: RouterMiddleware {
         do {
             #if os(Linux)
                 let fileManager = FileManager.default
-                let sourcePath = fileManager.currentDirectoryPath + "/Packages/Kitura-1.0.0/Sources/Kitura/resources"
+                let sourcePath = fileManager.currentDirectoryPath + "/Packages/Kitura-1.0.0/Sources/Kitura/resources/index.html"
             #else
                 //try response.send("Response from Home").end()
                 let folderPath = NSString(string: #file)
