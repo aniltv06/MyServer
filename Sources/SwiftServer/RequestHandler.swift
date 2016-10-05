@@ -17,13 +17,13 @@ public class HomeParser: RouterMiddleware {
         do {
             #if os(Linux)
                 let fileManager = FileManager.default
-                let sourcePath = fileManager.currentDirectoryPath + "/Packages/Kitura-1.0.0/Sources/Kitura/resources/index.html"
+                let sourcePath = fileManager.currentDirectoryPath + "/resources/index.html"
             #else
                 //try response.send("Response from Home").end()
                 let folderPath = NSString(string: #file)
                 let fldrPath = folderPath.deletingLastPathComponent as String
                 let basePath = fldrPath.replacingOccurrences(of: "/Sources/SwiftServer", with: "")
-                let sourcePath = ("\(basePath)/Sources/SwiftServer/resources/index.html")
+                let sourcePath = ("\(basePath)/resources/index.html")
             #endif
             try response.send(fileName: sourcePath)
             try response.status(.OK).end()
