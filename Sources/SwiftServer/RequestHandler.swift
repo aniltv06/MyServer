@@ -15,17 +15,42 @@ public class HomeParser: RouterMiddleware {
     public func handle (request: RouterRequest, response: RouterResponse, next: @escaping () -> Void) {
         print("Home called")
         do {
-            #if os(Linux)
+            /*#if os(Linux)
                 let fileManager = FileManager.default
                 let sourcePath = fileManager.currentDirectoryPath + "/resources/index.html"
             #else
-                //try response.send("Response from Home").end()
                 let folderPath = NSString(string: #file)
                 let fldrPath = folderPath.deletingLastPathComponent as String
                 let basePath = fldrPath.replacingOccurrences(of: "/Sources/SwiftServer", with: "")
                 let sourcePath = ("\(basePath)/resources/index.html")
+            #endif*/
+            
+            let fileManager = FileManager.default
+            #if os(Linux)
+                let sourcePath = fileManager.currentDirectoryPath + "/resources"
+                let destinationPath = fileManager.currentDirectoryPath + "/Packages/Kitura-1.0.0/Sources/Kitura/resources"
+            #else
+                let folderPath = NSString(string: #file)
+                let fldrPath = folderPath.deletingLastPathComponent as String
+                let basePath = fldrPath.replacingOccurrences(of: "/Sources/SwiftServer", with: "")
+                let sourcePath = ("\(basePath)/resources")
+                let destinationPath = ("\(basePath)/Packages/Kitura-1.0.0/Sources/Kitura/resources")
             #endif
-            try response.send(fileName: sourcePath)
+            
+            do {
+                try fileManager.removeItem(atPath: destinationPath as String)
+            }
+            catch let error as NSError {
+                print("Ooops! Something went wrong: \(error)")
+            }
+            do {
+                try fileManager.copyItem(atPath: sourcePath as String, toPath: destinationPath as String)
+            } catch let error as NSError {
+                print("Ooops! Something went wrong: \(error)")
+            }
+            
+            try response.send(fileName: destinationPath)
+            //try response.send("Response from Home").end()
             try response.status(.OK).end()
         } catch {
             print("err")
