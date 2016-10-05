@@ -37,7 +37,7 @@ public class HomeParser: RouterMiddleware {
                 let destinationPath = ("\(basePath)/Packages/Kitura-1.0.0/Sources/Kitura/resources")
             #endif
             
-            do {
+           /* do {
                 try fileManager.removeItem(atPath: destinationPath as String)
             }
             catch let error as NSError {
@@ -48,7 +48,7 @@ public class HomeParser: RouterMiddleware {
             } catch let error as NSError {
                 print("Ooops! Something went wrong: \(error)")
             }
-            
+            */
             try response.send(fileName: destinationPath + "/index.html")
             //try response.send("Response from Home").end()
             try response.status(.OK).end()

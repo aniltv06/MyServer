@@ -16,23 +16,6 @@ import LoggerAPI
     import Darwin.C
 #endif
 
-let router = Router()
-Log.debug("Main File")
-router.all("/*", middleware: BodyParser())
-router.all("/home", middleware: HomeParser())
-
-let environmentVars = ProcessInfo.processInfo.environment
-print(environmentVars)
-let portString: String = environmentVars["PORT"] ?? "8091"
-let portNumber = Int(portString)
-print("port Number \(portNumber))")
-
-// start the server
-print("starting server port: \(portNumber)")
-Kitura.addHTTPServer(onPort: portNumber!, with: router)
-
-print("Server listening on Port: \(portNumber)")
-Kitura.run()
 let fileManager = FileManager.default
 #if os(Linux)
 let sourcePath = fileManager.currentDirectoryPath + "/resources"
@@ -52,10 +35,29 @@ catch let error as NSError {
     print("Ooops! Something went wrong: \(error)")
 }
 do {
-    try fileManager.copyItem(atPath: sourcePath as String, toPath: destinationPath as String)
+    try fileManager.moveItem(atPath: sourcePath as String, toPath: destinationPath as String)
 } catch let error as NSError {
     print("Ooops! Something went wrong: \(error)")
 }
+
+let router = Router()
+Log.debug("Main File")
+router.all("/*", middleware: BodyParser())
+router.all("/home", middleware: HomeParser())
+
+let environmentVars = ProcessInfo.processInfo.environment
+print(environmentVars)
+let portString: String = environmentVars["PORT"] ?? "8091"
+let portNumber = Int(portString)
+print("port Number \(portNumber))")
+
+// start the server
+print("starting server port: \(portNumber)")
+Kitura.addHTTPServer(onPort: portNumber!, with: router)
+
+print("Server listening on Port: \(portNumber)")
+Kitura.run()
+
 
 
 
