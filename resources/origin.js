@@ -1,8 +1,8 @@
    var dependencies =
 {"links":[
-{"source":"Anil","dest":"CEO"},
-{"source":"CEO","dest":"VP1"},
-{"source":"CEO","dest":"VP2"},
+{"source":"Anil-TV","dest":"My Labs"},
+{"source":"My Labs","dest":"VP1"},
+{"source":"My Labs","dest":"VP2"},
 {"source":"VP1","dest":"Manager1"},
 {"source":"VP1","dest":"Manager2"},
 {"source":"VP2","dest":"Manager3"},

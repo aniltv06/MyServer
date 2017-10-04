@@ -12,13 +12,13 @@
             margin: 0;
             position: absolute;
             top: 0;
-            width: 700px;
+            width: 800px;
             left: 0;
             height: 100%;
         }
 
         #sidr {
-            width: 700px;
+            width: 800px;
         }
     </style>
 </head>
@@ -42,7 +42,7 @@
     <label><input type="range" name="link_strength" min="0.1" max="100" value="7"/> Link strength</label><br>
     -->
     <label><input type="checkbox" name="show_texts_near_circles" checked="checked"/> Show names</label><br>
-    <input id="search_input" placeholder="Type regexp to filter nodes" style="width:100%;"><br>
+    <input id="search_input" placeholder="Type to filter nodes" style="width:100%;"><br>
 
 </form>
 
@@ -56,34 +56,9 @@
 
 <div id="sidr">
   <pre id="editor">
-// This one is used by default
-// Groups are set based on the Prefixes
-function default_coloring(d) {
-  return color(d.group); 
-}
 
-// This function will group nodes based on the
-// Rgular expressions you've provided
-function regex_based_coloring(d) {
-  var className = d.name
-  
-  var rules = ["Magical", "Mapp", "^NS", "^UI",  "^NI", "AF", ""];
-//   var rules = ["ViewController", "View"]
-  
-  for (var i = 0; i &lt; rules.length; i++) {
-    var re = new RegExp(rules[i], "");
-    if (className.match(re)) {
-      return color(i + 1)
-    }
-  }
-  return "black";
-}
+Product of Anil-TV Labs
 
-// Filling out with default coloring
-node.style("fill", default_coloring)
-// node.style("fill", regex_based_coloring)
-  
-force.start()
     </pre>
 </div>
 

@@ -17,27 +17,73 @@ import LoggerAPI
 #endif
 
 let fileManager = FileManager.default
+
+var destinationPath : String = ""
 #if os(Linux)
 let sourcePath = fileManager.currentDirectoryPath + "/resources"
-let destinationPath = fileManager.currentDirectoryPath + "/Packages/Kitura-1.0.0/Sources/Kitura/resources"
+let basePath = fileManager.currentDirectoryPath
+for suffix in ["/Packages", "/.build/checkouts"] {
+    let packagePath: String
+    packagePath = basePath + suffix
+    
+    do {
+        let packages = try fileManager.contentsOfDirectory(atPath: packagePath)
+        for package in packages {
+            let potentialResource = "\(packagePath)/\(package)/Sources/Kitura"
+            print(potentialResource)
+            let resourceExists = fileManager.fileExists(atPath: potentialResource)
+            if resourceExists {
+                print("Resource Found")
+                destinationPath = potentialResource + "/resources"
+            }
+        }
+    } catch {
+        Log.error("No packages found in \(packagePath)")
+    }
+}
 #else
 let folderPath = NSString(string: #file)
 let fldrPath = folderPath.deletingLastPathComponent as String
 let basePath = fldrPath.replacingOccurrences(of: "/Sources/SwiftServer", with: "")
+    
+for suffix in ["/Packages", "/.build/checkouts"] {
+    let packagePath: String
+    packagePath = basePath + suffix
+    
+    do {
+        let packages = try fileManager.contentsOfDirectory(atPath: packagePath)
+        for package in packages {
+            let potentialResource = "\(packagePath)/\(package)/Sources/Kitura"
+            print(potentialResource)
+            let resourceExists = fileManager.fileExists(atPath: potentialResource)
+            if resourceExists {
+                print("Resource Found")
+                destinationPath = potentialResource + "/resources"
+            }
+        }
+    } catch {
+        Log.error("No packages found in \(packagePath)")
+    }
+}
+    
 let sourcePath = ("\(basePath)/resources")
-let destinationPath = ("\(basePath)/Packages/Kitura-1.0.0/Sources/Kitura/resources")
 #endif
 
-do {
-    try fileManager.removeItem(atPath: destinationPath as String)
-}
-catch let error as NSError {
-    print("Ooops! Something went wrong: \(error)")
-}
-do {
-    try fileManager.moveItem(atPath: sourcePath as String, toPath: destinationPath as String)
-} catch let error as NSError {
-    print("Ooops! Something went wrong: \(error)")
+if destinationPath != "" {
+    do {
+        try fileManager.removeItem(atPath: destinationPath as String)
+        print("Removed destination items successfully")
+    }
+    catch let error as NSError {
+        print("Ooops! Something went wrong: \(error)")
+    }
+    do {
+        try fileManager.copyItem(atPath: sourcePath as String, toPath: destinationPath as String)
+        print("Copied destination items successfully")
+    } catch let error as NSError {
+        print("Ooops! Something went wrong: \(error)")
+    }
+
 }
 
 let router = Router()
@@ -49,13 +95,13 @@ let environmentVars = ProcessInfo.processInfo.environment
 print(environmentVars)
 let portString: String = environmentVars["PORT"] ?? "8091"
 let portNumber = Int(portString)
-print("port Number \(portNumber))")
+print("port Number \(String(describing: portNumber)))")
 
 // start the server
-print("starting server port: \(portNumber)")
+print("starting server port: \(String(describing: portNumber))")
 Kitura.addHTTPServer(onPort: portNumber!, with: router)
 
-print("Server listening on Port: \(portNumber)")
+print("Server listening on Port: \(String(describing: portNumber))")
 Kitura.run()
 
 
