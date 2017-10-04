@@ -33,7 +33,7 @@ public class HomeParser: RouterMiddleware {
                 let folderPath = NSString(string: #file)
                 let fldrPath = folderPath.deletingLastPathComponent as String
                 let basePath = fldrPath.replacingOccurrences(of: "/Sources/SwiftServer", with: "")
-                let sourcePath = ("\(basePath)/resources")
+                //let sourcePath = ("\(basePath)/resources")
                 let destinationPath = ("\(basePath)/Packages/Kitura-1.0.0/Sources/Kitura/resources")
             #endif
             

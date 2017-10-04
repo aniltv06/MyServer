@@ -78,7 +78,11 @@ if destinationPath != "" {
         print("Ooops! Something went wrong: \(error)")
     }
     do {
-        try fileManager.copyItem(atPath: sourcePath as String, toPath: destinationPath as String)
+        #if os(Linux)
+            try fileManager.moveItem(atPath: sourcePath as String, toPath: destinationPath as String)
+        #else
+            try fileManager.copyItem(atPath: sourcePath as String, toPath: destinationPath as String)
+        #endif
         print("Copied destination items successfully")
     } catch let error as NSError {
         print("Ooops! Something went wrong: \(error)")
