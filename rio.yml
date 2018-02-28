@@ -1,0 +1,9 @@
+schemaVersion: 2.0
+
+builds:
+  - name: anilServer
+    branchName: master
+    build:
+      template: buildozer:v1:prb
+      builders:
+        - swift-pm-ssp
