@@ -19,8 +19,9 @@ import LoggerAPI
 let fileManager = FileManager.default
 
 var destinationPath : String = ""
+let sourcePath: String
 #if os(Linux)
-let sourcePath = fileManager.currentDirectoryPath + "/resources"
+ sourcePath = fileManager.currentDirectoryPath + "/resources"
 let basePath = fileManager.currentDirectoryPath
 for suffix in ["/Packages", "/.build/checkouts"] {
     let packagePath: String
@@ -66,7 +67,7 @@ for suffix in ["/Packages", "/.build/checkouts"] {
     }
 }
     
-let sourcePath = ("\(basePath)/resources")
+sourcePath = ("\(basePath)/resources")
 #endif
 
 if destinationPath != "" {
